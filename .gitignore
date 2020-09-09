@@ -1,4 +1,19 @@
-# Craft 2 Storage (https://craftcms.com/support/craft-storage-gitignore)
-# not necessary for Craft 3 (https://github.com/craftcms/craft/issues/26)
-/craft/storage/*
-!/craft/storage/rebrand
+# this serves as a template to copy into repos 
+
+# os
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# ide
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# tools
+node_modules/
+yarn-error.log
+
+# other
+*.bak
+*.txt
