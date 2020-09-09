@@ -5,7 +5,7 @@ A Tampermonkey user script to copy emoji and their metadata from https://graphem
 ## Explanation
 
 In one tab I have a Google Sheet of my favorite emoji and their names, Unicode codes, HTML decimal codes to use in sites.
-In another tab there's a resource website (https://graphemica.com/☭) that I can manually copy the codes from, but each emoji entry is on its own page and I want to skip some of them, also it involves pasting and tab switching 4 times for each piece of data.
+In another tab there's a resource website https://graphemica.com/☭ that I can manually copy the codes from, but each emoji entry is on its own page and I want to skip some of them, also it involves pasting and tab switching 4 times for each piece of data.
 I wanted to automatically grab specific strings and store them in the clipboard for easier pasting.
 User scripts to the rescue!
 / Yes, I realise if a data set is cumbersome to use then find a better data set. Or scrape the whole site and clean up the formatting afterwards... but I wanted to practice.
