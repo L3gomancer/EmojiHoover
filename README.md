@@ -4,14 +4,12 @@ A Tampermonkey user script to copy emoji and their metadata from https://graphem
 
 ## Explanation
 
-In one tab I have a Google Sheet of my favorite emoji and their names, Unicode codes, HTML decimal codes to use in sites.
-In another tab there's a resource website https://graphemica.com/☭ that I can manually copy the codes from, but each emoji entry is on its own page and I want to skip some of them, also it involves pasting and tab switching 4 times for each piece of data.
-I wanted to automatically grab specific strings and store them in the clipboard for easier pasting.
-User scripts to the rescue!
-/ Yes, I realise if a data set is cumbersome to use then find a better data set. Or scrape the whole site and clean up the formatting afterwards... but I wanted to practice.
+In one tab I have a Google Sheet of my favorite emoji and their names, Unicode codes, HTML decimal codes to use in sites.  
+In another tab there's a resource website https://graphemica.com/☭ that I can manually copy the codes from, but each emoji entry is on its own page and I want to skip some of them, also it involves pasting and tab switching 4 times for each piece of data. I wanted to automatically grab specific strings and store them in the clipboard for easier pasting. User scripts to the rescue!  
+Yes, I realise if a data set is cumbersome to use then find a better data set. Or scrape the whole site and clean up the formatting afterwards... but I wanted to practice.
 
-[Tampermonkey](https://www.tampermonkey.net/) is a user script manager that lives in an extension for Firefox. It has a dashboard to create your JavaScript scripts and toggle them on or off. It has a configuration syntax or "header" in JS comments, that's where you declare what sites the script runs on, what libraries to link in, metadata for organising, and special functions to do what JavaScript cannot e.g. accessing the system disk or clipboard. The [documentation](https://www.tampermonkey.net/documentation.php) explains what's what.
-/ if you're wondering why the Tampermonkey functions begin with "GM*" and not "TM*" it is because it used to be called Greasemonkey before it went cross-platform.
+[Tampermonkey](https://www.tampermonkey.net/) is a user script manager that lives in an extension for Firefox. It has a dashboard to create your JavaScript scripts and toggle them on or off. It has a configuration syntax or "header" in JS comments, that's where you declare what sites the script runs on, what libraries to link in, metadata for organising, and special functions to do what JavaScript cannot e.g. accessing the system disk or clipboard. The [documentation](https://www.tampermonkey.net/documentation.php) explains what's what.  
+if you're wondering why the Tampermonkey functions begin with "GM*" and not "TM*" it is because it used to be called Greasemonkey before it went cross-platform.  
 I used my browser's dev tools to analyse the HTML source code for the website and pick targets to manipulate based on text content and ease of selecting.
 
 ## Usage
@@ -20,18 +18,18 @@ Copy the script into your own Tampermonkey script
 
 ## A Brief Tour Of The Script
 
-At the top is the header, everything between `UserScript`
-`@name` is the name of your script which shows up in your Tampermonkey dashboard and its online text editor.
-`// @name EmojiHoover`
-`@match` is the website the script will function on. It can use Bash-like wildcard characters to activate it on a many web pages under a domain, or just `*` for every site.
-`// @match https://graphemica.com/*`
-.`@grant` allows access to special Tampermonkey functions. Explanation below.
-// @grant GM_setClipboard
+At the top is the header, everything between `UserScript`  
+`@name` is the name of your script which shows up in your Tampermonkey dashboard and its online text editor.  
+`// @name EmojiHoover`  
+`@match` is the website the script will function on. It can use Bash-like wildcard characters to activate it on a many web pages under a domain, or just `*` for every site.  
+`// @match https://graphemica.com/*`  
+.`@grant` allows access to special Tampermonkey functions. Explanation below.  
+`// @grant GM_setClipboard`
 
 I needed to identify and select each of the 4 target elements and then assign their text content to variables. JavaScript has the DOM property `.innerHTML` which grabs the text. Methods like `.querySelector()` can take CSS-like arguments to select elements.
-For example, this selects an element by tag name:
-`querySelector('div')`
-This selects an id:
+For example, this selects an element by tag name:  
+`querySelector('div')`  
+This selects an id:  
 `querySelector('#button')`
 
 For some reason all selected text strings had new lines at the start and end. The existing JS method `.trim()` did not seem remove them so I had to roll my own function `trimlines()` for all returned results. I used Regular Expressions since I wanted to alter the other results anyway. The JS method `.replace()` can replace part of a string, the argument before the comma is what to select, the argument after is what to replace it with, it can take regex between two slashes, the `g` means global which selects every occurrence per line. In JS regex, a letter "n" escaped with a backslash means a newline, so I replaced this with empty quotes (meaning a null value string).
