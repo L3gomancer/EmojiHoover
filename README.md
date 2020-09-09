@@ -33,35 +33,35 @@ This selects an id:
 `querySelector('#button')`
 
 For some reason all selected text strings had new lines at the start and end. The existing JS method `.trim()` did not seem remove them so I had to roll my own function `trimlines()` for all returned results. I used Regular Expressions since I wanted to alter the other results anyway. The JS method `.replace()` can replace part of a string, the argument before the comma is what to select, the argument after is what to replace it with, it can take regex between two slashes, the `g` means global which selects every occurrence per line. In JS regex, a letter "n" escaped with a backslash means a newline, so I replaced this with empty quotes (meaning a null value string).
-x.replace(/\n/gm, '')
+`x.replace(/\n/gm, '')`
 
 #### Emoji
 
-`<h1 ...>🐀</h1>`
-The emoji was in the only h1 element in the page. Easy to select
+`<h1 ...>🐀</h1>`  
+The emoji was in the only h1 element in the page. Easy to select  
 `let char = document.querySelector('h1').innerHTML`
 
 #### Unicode code
 
-`<td class="value">U+1F4A9</td>`
-The unicode did not have a unique class so I selected all table cells. This returns an array and the desired value can be selected by index in the order it appears on the page. The unicode code is the second table cell so its index is 1
+`<td class="value">U+1F4A9</td>`  
+The unicode did not have a unique class so I selected all table cells. This returns an array and the desired value can be selected by index in the order it appears on the page. The unicode code is the second table cell so its index is 1  
 `let uni = document.querySelectorAll('td')[1].innerHTML`
 
 #### Name
 
-`<h2 class="char-title">Lion (U+1F981)</h2>`
-The emoji name had a unique class `.char-title`
-`let title = document.querySelector('.char-title').innerHTML`
-But I wanted to remove the text in parenthesis so made the `trimtitle()`. This regex deletes either a newline, or a space followed immediately by an open bracket and then anything after that.
-/ ...then a close bracket
+`<h2 class="char-title">Lion (U+1F981)</h2>`  
+The emoji name had a unique class `.char-title`  
+`let title = document.querySelector('.char-title').innerHTML`  
+But I wanted to remove the text in parenthesis so made the `trimtitle()`. This regex deletes either a newline, or a space followed immediately by an open bracket and then anything after that.  
+/ ...then a close bracket  
 `x.replace(/\n| \(.*/gm, '')`
 
 #### HTML decimal code
 
-Again, selected all cells and found the index
-`let dec = document.querySelectorAll('td')[9].innerHTML`
+Again, selected all cells and found the index  
+`let dec = document.querySelectorAll('td')[9].innerHTML`  
 This was the hardest text to clean up after selecting so it needed a function `trimdec()`.
-/
+
 Remove newlines
 `/\n/`
 Remove span from first angle bracket to end
@@ -72,26 +72,26 @@ Replace html chara code "&amp;" with "&"
 `/amp;/`
 Chain em all together with OR operators
 `/\n|amp;|<.*|c/`
-/
+
 `x.replace(/\n|amp;|<.*|c/gm, '')`
 
 The DOM method `trim()` I had to roll my own function
 
-`GM_clipboard()` copies the string into the system clipboard
+`GM_clipboard()` copies the string into the system clipboard.  
 I wrapped the whole thing in an event listener `.addEventListener()` listening for key "ControlLeft" to trigger the script, because I wanted to skip some emoji. I used a control key instead of a letter key because the website always focuses the cursor on the search box on page load, and I wanted to avoid accidentally typing.
 
 ## Postmortem
 
-The site focuses the cursor on the search box on load, so I should have added a control key to the keyboard shortcut. Or inserted a button into the page.
-Some pages have extra entries so this throws off the absolute indexing of the table cells. I could have found a more specific selector.
-For the HTML code I remove the span but it leaves the "c" for some reason. There must be a better way
+The site focuses the cursor on the search box on load, so I should have added a control key to the keyboard shortcut. Or inserted a button into the page.  
+Some pages have extra entries so this throws off the absolute indexing of the table cells. I could have found a more specific selector.  
+For the HTML code I remove the span but it leaves the "c" for some reason. There must be a better way  
 I could have found a more specific selector for the HTML code plaintext avoiding the sibling span element.
 
 ## References
 
 MDN keyboard event listener  
-https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent
+https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent  
 Wes Bos' keycode tool  
-https://keycode.info/
+https://keycode.info/  
 Other methods can click elements  
 https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/click
