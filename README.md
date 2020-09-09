@@ -21,30 +21,27 @@ Copy the script into your own Tampermonkey script
 At the top is the header, everything between `UserScript`  
 `@name` is the name of your script which shows up in your Tampermonkey dashboard and its online text editor.  
 `// @name EmojiHoover`  
-`@match` is the website the script will function on. It can use Bash-like wildcard characters to activate it on a many web pages under a domain, or just `*` for every site.  
+`@match` is the website the script will function on. It can use Bash-like wildcard characters to activate it on many web pages under a domain, or just `*` for every site.  
 `// @match https://graphemica.com/*`  
-.`@grant` allows access to special Tampermonkey functions. Explanation below.  
+`@grant` allows access to special Tampermonkey functions. Explanation below.  
 `// @grant GM_setClipboard`
 
 I needed to identify and select each of the 4 target elements and then assign their text content to variables. JavaScript has the DOM property `.innerHTML` which grabs the text. Methods like `.querySelector()` can take CSS-like arguments to select elements.
-For example, this selects an element by tag name:  
-`querySelector('div')`  
-This selects an id:  
-`querySelector('#button')`
+For example, this selects an element by tag name: `querySelector('div')`. This selects an id: `querySelector('#button')`
 
-For some reason all selected text strings had new lines at the start and end. The existing JS method `.trim()` did not seem remove them so I had to roll my own function `trimlines()` for all returned results. I used Regular Expressions since I wanted to alter the other results anyway. The JS method `.replace()` can replace part of a string, the argument before the comma is what to select, the argument after is what to replace it with, it can take regex between two slashes, the `g` means global which selects every occurrence per line. In JS regex, a letter "n" escaped with a backslash means a newline, so I replaced this with empty quotes (meaning a null value string).
+For some reason all selected text strings had new lines at the start and end. The existing JS method `.trim()` did not seem remove them so I had to roll my own function `trimlines()` for all returned results. I used Regular Expressions since I wanted to alter the other results anyway. The JS method `.replace()` can replace part of a string, the argument before the comma is what to select, the argument after is what to replace it with, it can take regex between two slashes, the `g` means global which selects every occurrence on a line. In JS regex, a letter "n" escaped with a backslash means a newline, so I replaced this with empty quotes (meaning a null value string).
 `x.replace(/\n/gm, '')`
 
 #### Emoji
 
 `<h1 ...>🐀</h1>`  
-The emoji was in the only h1 element in the page. Easy to select  
+The emoji was in the only H1 element in the page. Easy to select  
 `let char = document.querySelector('h1').innerHTML`
 
 #### Unicode code
 
 `<td class="value">U+1F4A9</td>`  
-The unicode did not have a unique class so I selected all table cells. This returns an array and the desired value can be selected by index in the order it appears on the page. The unicode code is the second table cell so its index is 1  
+The unicode did not have a unique class so I selected all table cells with `.querySelectorAll()`. This returns an array and the desired value can be selected by index in the order it appears on the page. The unicode code is the second table cell so its index is 1  
 `let uni = document.querySelectorAll('td')[1].innerHTML`
 
 #### Name
@@ -52,7 +49,7 @@ The unicode did not have a unique class so I selected all table cells. This retu
 `<h2 class="char-title">Lion (U+1F981)</h2>`  
 The emoji name had a unique class `.char-title`  
 `let title = document.querySelector('.char-title').innerHTML`  
-But I wanted to remove the text in parenthesis so made the `trimtitle()`. This regex deletes either a newline, or a space followed immediately by an open bracket and then anything after that  
+But I wanted to remove the text in parenthesis so made `trimtitle()`. This regex deletes either a newline, or a space followed immediately by an open bracket and then anything after that  
 `x.replace(/\n| \(.*/gm, '')`
 
 #### HTML decimal code
@@ -77,12 +74,12 @@ Finally I concatenate the string variables together with tabs so when I paste in
 `let combo = char + '\t ' + dec + '\t ' + uni + '\t ' + title;`  
 `GM_clipboard()` copies the string into the system clipboard
 
-I wrapped the whole thing in an event listener `.addEventListener()` listening for key "ControlLeft" to trigger the script, because I wanted to skip some emoji. I used a control key instead of a letter key because the website always focuses the cursor on the search box on page load, and I wanted to avoid accidentally typing.
+I wrapped the whole thing in an event listener `.addEventListener()` listening for key "ControlLeft" to trigger the script manually. I used a control key instead of a letter key because the website always focuses the cursor on the search box on page load, and I wanted to avoid accidentally typing.
 
 ## Postmortem
 
 The site focuses the cursor on the search box on load, so I should have inserted a button into the page.  
-Some pages have extra entries so this throws off the absolute indexing of the table cells. I could have found a more specific selector.  
+Some pages have extra table entries so this throws off the absolute indexing of the cells. I could have found a more specific selector.  
 For the HTML code I remove the span but it leaves the "c" for some reason. There must be a better way  
 I could have found a more specific selector for the HTML code plaintext avoiding the sibling span element.
 
@@ -92,5 +89,5 @@ MDN keyboard event listener
 https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent  
 Wes Bos' keycode tool  
 https://keycode.info/  
-Other methods can click elements  
+For future use, other methods can click elements  
 https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/click
