@@ -52,8 +52,7 @@ The unicode did not have a unique class so I selected all table cells. This retu
 `<h2 class="char-title">Lion (U+1F981)</h2>`  
 The emoji name had a unique class `.char-title`  
 `let title = document.querySelector('.char-title').innerHTML`  
-But I wanted to remove the text in parenthesis so made the `trimtitle()`. This regex deletes either a newline, or a space followed immediately by an open bracket and then anything after that.  
-/ ...then a close bracket  
+But I wanted to remove the text in parenthesis so made the `trimtitle()`. This regex deletes either a newline, or a space followed immediately by an open bracket and then anything after that  
 `x.replace(/\n| \(.*/gm, '')`
 
 #### HTML decimal code
@@ -75,9 +74,10 @@ Chain em all together with OR operators
 
 `x.replace(/\n|amp;|<.*|c/gm, '')`
 
-The DOM method `trim()` I had to roll my own function
+Finally I concatenate the string variables together with tabs so when I paste into the spreadsheet each entry goes in its own adjacent cell.  
+`let combo = char + '\t ' + dec + '\t ' + uni + '\t ' + title;`  
+`GM_clipboard()` copies the string into the system clipboard
 
-`GM_clipboard()` copies the string into the system clipboard.  
 I wrapped the whole thing in an event listener `.addEventListener()` listening for key "ControlLeft" to trigger the script, because I wanted to skip some emoji. I used a control key instead of a letter key because the website always focuses the cursor on the search box on page load, and I wanted to avoid accidentally typing.
 
 ## Postmortem
