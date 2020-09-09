@@ -81,7 +81,7 @@ I wrapped the whole thing in an event listener `.addEventListener()` listening f
 
 ## Postmortem
 
-The site focuses the cursor on the search box on load, so I should have added a control key to the keyboard shortcut. Or inserted a button into the page.  
+The site focuses the cursor on the search box on load, so I should have inserted a button into the page.  
 Some pages have extra entries so this throws off the absolute indexing of the table cells. I could have found a more specific selector.  
 For the HTML code I remove the span but it leaves the "c" for some reason. There must be a better way  
 I could have found a more specific selector for the HTML code plaintext avoiding the sibling span element.
