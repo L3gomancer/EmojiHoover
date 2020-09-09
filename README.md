@@ -10,7 +10,7 @@ I wanted to automatically grab specific strings and store them in the clipboard 
 User scripts to the rescue!
 / Yes, I realise if a data set is cumbersome to use then find a better data set. Or scrape the whole site and clean up the formatting afterwards... but I wanted to practice.
 
-Tampermonkey (https://www.tampermonkey.net/) is a user script manager that lives in an extension for Firefox. It has a dashboard to create your JavaScript scripts and toggle them on or off. It has a configuration syntax or "header" in JS comments, that's where you declare what sites the script runs on, what libraries to link in, metadata for organising, and special functions to do what JavaScript cannot e.g. accessing the system disk or clipboard. The documentation (https://www.tampermonkey.net/documentation.php) explains what's what.
+[Tampermonkey](https://www.tampermonkey.net/) is a user script manager that lives in an extension for Firefox. It has a dashboard to create your JavaScript scripts and toggle them on or off. It has a configuration syntax or "header" in JS comments, that's where you declare what sites the script runs on, what libraries to link in, metadata for organising, and special functions to do what JavaScript cannot e.g. accessing the system disk or clipboard. The [documentation](https://www.tampermonkey.net/documentation.php) explains what's what.
 / if you're wondering why the Tampermonkey functions begin with "GM*" and not "TM*" it is because it used to be called Greasemonkey before it went cross-platform.
 I used my browser's dev tools to analyse the HTML source code for the website and pick targets to manipulate based on text content and ease of selecting.
 
@@ -91,8 +91,9 @@ I could have found a more specific selector for the HTML code plaintext avoiding
 
 ## References
 
-MDN keyboard event listener https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent
-Wes Bos' keycode tool
+MDN keyboard event listener  
+https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent
+Wes Bos' keycode tool  
 https://keycode.info/
-Other methods can click elements
+Other methods can click elements  
 https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/click
