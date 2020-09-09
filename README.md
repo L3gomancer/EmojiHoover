@@ -60,18 +60,17 @@ But I wanted to remove the text in parenthesis so made the `trimtitle()`. This r
 Again, selected all cells and found the index  
 `let dec = document.querySelectorAll('td')[9].innerHTML`  
 This was the hardest text to clean up after selecting so it needed a function `trimdec()`.
-
-Remove newlines
-`/\n/`
-Remove span from first angle bracket to end
-`/<.*/`
-For some reason the span's "c" (which doesnt show on page) is left. So also remove
-`/c/`
-Replace html chara code "&amp;" with "&"
-`/amp;/`
-Chain em all together with OR operators
-`/\n|amp;|<.*|c/`
-
+Remove newlines  
+`\n`  
+Remove anything from the first angle bracket to the end. This deletes the span  
+`<.*`  
+For some reason there's a plaintext "c" in the span which doesnt show on the page and isnt deleted by the regex, so I remove explicitly  
+`c`  
+Remove the html character code "amp;" leaving the "&"  
+`amp;`  
+Chain them all together with OR operators  
+`\n|amp;|<.*|c`  
+Finished function behaviour  
 `x.replace(/\n|amp;|<.*|c/gm, '')`
 
 Finally I concatenate the string variables together with tabs so when I paste into the spreadsheet each entry goes in its own adjacent cell.  
