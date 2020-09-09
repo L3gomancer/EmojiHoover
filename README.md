@@ -89,5 +89,13 @@ MDN keyboard event listener
 https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent  
 Wes Bos' keycode tool  
 https://keycode.info/  
+.querySelectorAll()[]  
+https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll  
+.trim()  
+https://www.w3schools.com/jsref/jsref_trim_string.asp  
+.replace()  
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace  
+Regex  
+https://regexr.com/  
 For future use, other methods can click elements  
 https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/click
