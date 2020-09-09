@@ -9,7 +9,7 @@ In another tab there's a resource website https://graphemica.com/☭ that I can 
 Yes, I realise if a data set is cumbersome to use then find a better data set. Or scrape the whole site and clean up the formatting afterwards... but I wanted to practice.
 
 [Tampermonkey](https://www.tampermonkey.net/) is a user script manager that lives in an extension for Firefox. It has a dashboard to create your JavaScript scripts and toggle them on or off. It has a configuration syntax or "header" in JS comments, that's where you declare what sites the script runs on, what libraries to link in, metadata for organising, and special functions to do what JavaScript cannot e.g. accessing the system disk or clipboard. The [documentation](https://www.tampermonkey.net/documentation.php) explains what's what.  
-if you're wondering why the Tampermonkey functions begin with "GM*" and not "TM*" it is because it used to be called Greasemonkey before it went cross-platform.  
+if you're wondering why the Tampermonkey functions begin with "GM\_" and not "TM\_" it is because it used to be called Greasemonkey before it went cross-platform.  
 I used my browser's dev tools to analyse the HTML source code for the website and pick targets to manipulate based on text content and ease of selecting.
 
 ## Usage
