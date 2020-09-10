@@ -49,7 +49,7 @@ The unicode did not have a unique class so I selected all table cells with `.que
 `<h2 class="char-title">Lion (U+1F981)</h2>`  
 The emoji name had a unique class `.char-title`  
 `let title = document.querySelector('.char-title').innerHTML`  
-But I wanted to remove the text in parenthesis so made `trimtitle()`. This regex deletes either a newline, or a space followed immediately by an open bracket and then anything after that  
+But I wanted to remove the text in parenthesis so I made `trimtitle()`. This regex deletes either a newline, or a space followed immediately by an open bracket and then anything after that  
 `x.replace(/\n| \(.*/gm, '')`
 
 #### HTML decimal code
